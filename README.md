@@ -1,163 +1,88 @@
 # Swiss-Tournament-Manager
-Swiss-Tournament-Manager for JoinWars at VRChat
+JoinWars at VRChat用のスイス式トーナメント管理ツール
 
-## Features
+## 主な機能
+- 参加者登録
+- トーナメントダッシュボード
+- 予選ラウンドの管理
+- 決勝ラウンドの管理
+- 準決勝・決勝の管理
 
-- User registration
-- Tournament dashboard
-- Preliminary round management
-- Final round management
-- Semifinal and final management
+## 必要環境
+- Node.js (v14以降)
+- npm (v6以降)
 
-## Prerequisites
-
-- Node.js (v14 or later)
-- npm (v6 or later)
-
-## Getting Started
-
-1. Clone the repository:
-
+## 始め方
+1. リポジトリをクローンします：
 ```
-git clone https://github.com/your-username/dominion-tournament.git
+git clone https://github.com/KAFKA2306/swiss-tournament-manager.git
 ```
-
-2. Install dependencies for both the frontend and backend:
-
+2. フロントエンドとバックエンドの依存関係をインストールします：
 ```
-cd dominion-tournament/client
+cd swiss-tournament-manager/client
 npm install
-
 cd ../server
 npm install
 ```
-
-3. Start the development server:
-
+3. 開発サーバーを起動します：
 ```
 cd ../client
 npm start
-
 cd ../server
 npm start
 ```
+4. ブラウザで`http://localhost:3000`にアクセスし、アプリケーションを開きます。
 
-4. Open your browser and navigate to `http://localhost:3000` to access the application.
-
-## Project Structure
-
-- `client/`: Frontend React application
-  - `public/`: Static files
-    - `index.html`: Entry point for the application
-  - `src/`: Application source code
-    - `App.js`: Main App component
-    - `Register.js`: User registration component
-    - `Dashboard.js`: Tournament dashboard component
-    - `index.js`: Entry point for the React application
-
-- `server/`: Backend Express application
-  - `controllers/`: Request handlers
-    - `authController.js`: Authentication-related request handlers
-    - `tournamentController.js`: Tournament-related request handlers
-  - `models/`: Data models
-    - `User.js`: User model
-    - `Match.js`: Match model
-    - `Result.js`: Result model
-  - `routes/`: Routing
-    - `auth.js`: Authentication-related routes
-    - `tournament.js`: Tournament-related routes
-  - `index.js`: Entry point for the Express application
+## プロジェクト構成
+- `client/`：フロントエンドのReactアプリケーション
+  - `public/`：静的ファイル
+    - `index.html`：アプリケーションのエントリーポイント
+  - `src/`：アプリケーションのソースコード
+    - `App.js`：メインのAppコンポーネント
+    - `Register.js`：参加者登録コンポーネント
+    - `Dashboard.js`：トーナメントダッシュボードコンポーネント
+    - `index.js`：Reactアプリケーションのエントリーポイント
+- `server/`：バックエンドのExpressアプリケーション
+  - `controllers/`：リクエストハンドラ
+    - `authController.js`：認証関連のリクエストハンドラ
+    - `tournamentController.js`：トーナメント関連のリクエストハンドラ
+  - `models/`：データモデル
+    - `User.js`：ユーザーモデル
+    - `Match.js`：マッチモデル
+    - `Result.js`：結果モデル
+  - `routes/`：ルーティング
+    - `auth.js`：認証関連のルート
+    - `tournament.js`：トーナメント関連のルート
+  - `index.js`：Expressアプリケーションのエントリーポイント
 
 ---
 
 要件
-
 1. 参加者登録機能
    - 参加者が名前とIDを登録できる
    - 運営者が参加者リストを管理できる
-
 2. 予選ラウンド管理機能
    - 4人対戦のマッチメイキング（3人対戦にも対応）
-   - スイスドロー方式でのマッチング
+   - スイス式トーナメント方式でのマッチング
    - 参加者が勝ち点と順位を報告できる
    - 4ラウンド終了後、勝ち点上位22名を決勝進出者として選出
-
 3. 決勝ラウンド管理機能
    - 予選通過者とシード選手でマッチメイキング
    - 参加者が勝ち点と順位を報告できる
    - 5ラウンド終了後、勝ち点上位8名を準決勝進出者として選出
-
-4. 準決勝・代表決定戦管理機能
+4. 準決勝・決勝管理機能
    - 対戦カード選択プロセスの管理
    - 参加者が勝ち点と順位を報告できる
-
-5. ビューワー向けダッシュボード
+5. 観戦者向けダッシュボード
    - 予選・決勝ラウンドの進捗状況を表示
    - 参加者ランキングを表示
    - 次ラウンドのマッチメイク結果を表示
-
 6. データ記録・集計機能
    - 各ラウンドの対戦結果を記録
    - 総合勝ち点と総合獲得点数を集計してランキングを作成
-
 7. シンプルなユーザーインターフェース
-   - 参加者用: 登録、結果報告
-   - 運営者用: 参加者管理、マッチメイク実行、各ラウンドの進行管理
-   - ビューワー用: ダッシュボード閲覧
-
-8. ローカルホストでの動作
-   - Nginxローカルホストで動作させる
-  
----
-
-```mermaid
-graph LR
-   A[Swiss-Tournament-Manager] --> B(Features)
-   B --> C[User registration]
-   B --> D[Tournament dashboard]
-   B --> E[Preliminary round management]
-   B --> F[Final round management]
-   B --> G[Semifinal and final management]
-   
-   A --> H(Prerequisites)
-   H --> I[Node.js v14+]
-   H --> J[npm v6+]
-   
-   A --> K(Getting Started)
-   K --> L[Clone repository]
-   K --> M[Install dependencies]
-   K --> N[Start development server]
-   K --> O[Access application]
-   
-   A --> P(Project Structure)
-   P --> Q[Client]
-   Q --> R[Public]
-   R --> S[index.html]
-   Q --> T[src]
-   T --> U[App.js]
-   T --> V[Register.js]
-   T --> W[Dashboard.js]
-   T --> X[index.js]
-   P --> Y[Server]
-   Y --> Z[Controllers]
-   Z --> AA[authController.js]
-   Z --> AB[tournamentController.js]
-   Y --> AC[Models]
-   AC --> AD[User.js]
-   AC --> AE[Match.js]
-   AC --> AF[Result.js]
-   Y --> AG[Routes]
-   AG --> AH[auth.js]
-   AG --> AI[tournament.js]
-   Y --> AJ[index.js]
-   
-   A --> AK(要件)
-   AK --> AL[参加者登録機能]
-   AK --> AM[予選ラウンド管理機能]
-   AK --> AN[決勝ラウンド管理機能]
-   AK --> AO[準決勝・決勝管理機能]
-   AK --> AP[観戦者向けダッシュボード]
-   AK --> AQ[データ記録・集計機能]
-   AK --> AR[シンプルなユーザーインターフェース]
-   AK --> AS[ローカル環境での動作]
-```
+   - 参加者用：登録、結果報告
+   - 運営者用：参加者管理、マッチメイク実行、各ラウンドの進行管理
+   - 観戦者用：ダッシュボード閲覧
+8. ローカル環境での動作
+   - ローカル環境で動作させる
