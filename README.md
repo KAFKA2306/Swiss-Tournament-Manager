@@ -110,7 +110,7 @@ npm start
   
 ---
 
-
+```mermaid
 graph LR
    A[Swiss-Tournament-Manager] --> B(Features)
    B --> C[User registration]
@@ -160,3 +160,4 @@ graph LR
    AK --> AQ[データ記録・集計機能]
    AK --> AR[シンプルなユーザーインターフェース]
    AK --> AS[ローカル環境での動作]
+```
