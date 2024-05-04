@@ -107,3 +107,56 @@ npm start
 
 8. ローカルホストでの動作
    - Nginxローカルホストで動作させる
+  
+---
+
+
+graph LR
+   A[Swiss-Tournament-Manager] --> B(Features)
+   B --> C[User registration]
+   B --> D[Tournament dashboard]
+   B --> E[Preliminary round management]
+   B --> F[Final round management]
+   B --> G[Semifinal and final management]
+   
+   A --> H(Prerequisites)
+   H --> I[Node.js v14+]
+   H --> J[npm v6+]
+   
+   A --> K(Getting Started)
+   K --> L[Clone repository]
+   K --> M[Install dependencies]
+   K --> N[Start development server]
+   K --> O[Access application]
+   
+   A --> P(Project Structure)
+   P --> Q[Client]
+   Q --> R[Public]
+   R --> S[index.html]
+   Q --> T[src]
+   T --> U[App.js]
+   T --> V[Register.js]
+   T --> W[Dashboard.js]
+   T --> X[index.js]
+   P --> Y[Server]
+   Y --> Z[Controllers]
+   Z --> AA[authController.js]
+   Z --> AB[tournamentController.js]
+   Y --> AC[Models]
+   AC --> AD[User.js]
+   AC --> AE[Match.js]
+   AC --> AF[Result.js]
+   Y --> AG[Routes]
+   AG --> AH[auth.js]
+   AG --> AI[tournament.js]
+   Y --> AJ[index.js]
+   
+   A --> AK(要件)
+   AK --> AL[参加者登録機能]
+   AK --> AM[予選ラウンド管理機能]
+   AK --> AN[決勝ラウンド管理機能]
+   AK --> AO[準決勝・決勝管理機能]
+   AK --> AP[観戦者向けダッシュボード]
+   AK --> AQ[データ記録・集計機能]
+   AK --> AR[シンプルなユーザーインターフェース]
+   AK --> AS[ローカル環境での動作]
