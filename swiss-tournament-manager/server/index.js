@@ -1,21 +1,19 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
 const mongoose = require('mongoose');
+const app = require('./app');
 
-app.use(cors());
-app.use(express.json());
+const mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/tournament';
+const port = Number(process.env.PORT || 5000);
 
-mongoose.connect('mongodb://localhost/tournament', {
- useNewUrlParser: true,
- useUnifiedTopology: true,
+async function start() {
+  await mongoose.connect(mongodbUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  app.listen(port, () => console.log(`Server running on port ${port}`));
+}
+
+start().catch((error) => {
+  console.error('Failed to start server:', error);
+  process.exitCode = 1;
 });
-
-const userRoutes = require('./routes/user');
-const tournamentRoutes = require('./routes/tournament');
-
-app.use('/api/users', userRoutes);
-app.use('/api/tournament', tournamentRoutes);
-
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server running on port ${port}`));

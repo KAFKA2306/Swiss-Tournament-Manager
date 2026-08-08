@@ -1,0 +1,66 @@
+name: Clean install and build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  repository-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Reject tracked dependencies and scratch files
+        run: |
+          set -euo pipefail
+          if git ls-files | grep -E '(^|/)node_modules/'; then
+            echo 'Tracked node_modules are forbidden.' >&2
+            exit 1
+          fi
+          if git ls-files --error-unmatch tmp.js tmp.mmd >/dev/null 2>&1; then
+            echo 'Root scratch files tmp.js/tmp.mmd are not canonical artifacts.' >&2
+            exit 1
+          fi
+
+  client:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: swiss-tournament-manager
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: swiss-tournament-manager/package-lock.json
+      - run: npm ci
+      - run: npm run test:ci
+        env:
+          CI: 'true'
+      - run: npm run build
+        env:
+          CI: 'true'
+          NODE_OPTIONS: --openssl-legacy-provider
+      - name: Ensure install/build did not modify tracked files
+        run: git diff --exit-code
+
+  server:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: swiss-tournament-manager/server
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: swiss-tournament-manager/server/package-lock.json
+      - run: npm ci
+      - run: npm run smoke
+      - name: Ensure install did not modify tracked files
+        run: git diff --exit-code

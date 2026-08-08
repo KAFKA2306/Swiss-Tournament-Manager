@@ -1,11 +1,16 @@
 {
-  "name": "swiss-tournament-manager",
+  "name": "swiss-tournament-manager-server",
   "version": "1.0.0",
-  "description": "Swiss Tournament Manager for JoinWars at VRChat",
+  "private": true,
+  "description": "Swiss Tournament Manager backend for JoinWars at VRChat",
   "main": "index.js",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "smoke": "node smoke.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
