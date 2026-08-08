@@ -10,11 +10,11 @@ JoinWars at VRChat用のスイス式トーナメント管理ツールです。
 
 ## package境界
 
-- `swiss-tournament-manager/`: React frontend package。`package.json` / `package-lock.json` はここが正準です。
-- `swiss-tournament-manager/client/`: frontendの`public/`と`src/`を格納するsource directoryで、独立npm packageではありません。
+- `swiss-tournament-manager/client/`: React frontendの独立package。`package.json` / `package-lock.json` / `public/` / `src/` を同じdirectoryに置きます。
 - `swiss-tournament-manager/server/`: Express/Mongoose backendの独立package。専用`package.json` / `package-lock.json`を持ちます。
+- `swiss-tournament-manager/`: 2 packageをまとめるproject directoryで、package manifestは置きません。
 
-`node_modules/` は生成物でありGit管理しません。依存関係はlockfileから`npm ci`で復元します。
+`node_modules/` は生成物でありGit管理しません。依存関係は各lockfileから`npm ci`で復元します。
 
 ## clean install
 
@@ -22,7 +22,7 @@ JoinWars at VRChat用のスイス式トーナメント管理ツールです。
 git clone https://github.com/KAFKA2306/Swiss-Tournament-Manager.git
 cd Swiss-Tournament-Manager
 nvm use
-npm --prefix swiss-tournament-manager ci
+npm --prefix swiss-tournament-manager/client ci
 npm --prefix swiss-tournament-manager/server ci
 ```
 
@@ -31,8 +31,8 @@ npm --prefix swiss-tournament-manager/server ci
 ## 検証
 
 ```bash
-CI=true npm --prefix swiss-tournament-manager run test:ci
-NODE_OPTIONS=--openssl-legacy-provider npm --prefix swiss-tournament-manager run build
+CI=true npm --prefix swiss-tournament-manager/client run test:ci
+NODE_OPTIONS=--openssl-legacy-provider npm --prefix swiss-tournament-manager/client run build
 npm --prefix swiss-tournament-manager/server run smoke
 ```
 
@@ -44,7 +44,7 @@ MongoDB URIとportは環境変数で指定できます。
 
 ```bash
 MONGODB_URI=mongodb://localhost/tournament PORT=5000 npm --prefix swiss-tournament-manager/server start
-npm --prefix swiss-tournament-manager start
+npm --prefix swiss-tournament-manager/client start
 ```
 
 未指定時は`MONGODB_URI=mongodb://localhost/tournament`、`PORT=5000`です。frontendは通常`http://localhost:3000`で起動します。
@@ -55,7 +55,7 @@ npm --prefix swiss-tournament-manager start
 
 1. tracked `node_modules/` が存在しないこと
 2. frontend/server双方がlockfile固定の`npm ci`で復元できること
-3. frontend testとproduction buildが成功すること
+3. frontend regression testとproduction buildが成功すること
 4. MongoDB不要のserver startup smoke testが成功すること
 5. install/buildがtracked fileを書き換えないこと
 6. rootの旧`tmp.js` / `tmp.mmd`が再混入しないこと
@@ -80,9 +80,9 @@ Swiss-Tournament-Manager/
 ├── .nvmrc
 ├── README.md
 └── swiss-tournament-manager/
-    ├── package.json
-    ├── package-lock.json
     ├── client/
+    │   ├── package.json
+    │   ├── package-lock.json
     │   ├── public/
     │   └── src/
     └── server/

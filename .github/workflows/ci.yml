@@ -29,14 +29,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: swiss-tournament-manager
+        working-directory: swiss-tournament-manager/client
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: npm
-          cache-dependency-path: swiss-tournament-manager/package-lock.json
+          cache-dependency-path: swiss-tournament-manager/client/package-lock.json
       - run: npm ci
       - run: npm run test:ci
         env:
