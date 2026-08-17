@@ -51,7 +51,7 @@ npm --prefix swiss-tournament-manager/client start
 
 未指定時は`MONGODB_URI=mongodb://localhost/tournament`、`PORT=5000`です。frontendは通常`http://localhost:3000`で起動します。
 
-## CI契約
+## CI
 
 `.github/workflows/ci.yml` はclean checkoutで以下を検証します。
 
@@ -60,9 +60,6 @@ npm --prefix swiss-tournament-manager/client start
 3. frontend regression testとproduction buildが成功すること
 4. MongoDB不要のserver startup smoke testが成功すること
 5. install/buildがtracked fileを書き換えないこと
-6. rootの旧`tmp.js` / `tmp.mmd`が再混入しないこと
-
-旧`tmp.js`は既存server/client sourceを連結した作業用コピー、`tmp.mmd`は作業用図でした。どちらも正準sourceではないため削除し、再混入をCIで拒否します。
 
 ## 主な機能
 
