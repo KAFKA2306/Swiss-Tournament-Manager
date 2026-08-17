@@ -1,5 +1,7 @@
 # Swiss-Tournament-Manager
 
+[![Clean install and build](https://github.com/KAFKA2306/Swiss-Tournament-Manager/actions/workflows/ci.yml/badge.svg)](https://github.com/KAFKA2306/Swiss-Tournament-Manager/actions/workflows/ci.yml)
+
 JoinWars at VRChat用のスイス式トーナメント管理ツールです。
 
 ## 開発環境
