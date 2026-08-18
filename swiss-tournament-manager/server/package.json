@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
+    "test": "node --test",
     "smoke": "node smoke.js"
   },
   "dependencies": {

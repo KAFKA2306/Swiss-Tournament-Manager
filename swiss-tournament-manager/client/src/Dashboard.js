@@ -1,4 +1,3 @@
-
 // client/src/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -6,11 +5,16 @@ import axios from 'axios';
 function Dashboard() {
  const [matches, setMatches] = useState([]);
  const [results, setResults] = useState([]);
+ const [config, setConfig] = useState(null);
 
  useEffect(() => {
    const fetchData = async () => {
-     const { data } = await axios.post('/api/tournament/preliminary');
-     setMatches(data);
+     const [{ data: configData }, { data: matchData }] = await Promise.all([
+       axios.get('/api/tournament/config'),
+       axios.post('/api/tournament/preliminary'),
+     ]);
+     setConfig(configData);
+     setMatches(matchData);
    };
    fetchData();
  }, []);
@@ -23,6 +27,15 @@ function Dashboard() {
 
  return (
    <div>
+     {config && (
+       <header>
+         <h1>{config.tournamentName}</h1>
+         <p>
+           {config.tableSize}人卓 / 予選{config.preliminaryRounds}ラウンド / 上位
+           {config.finalistCut}名が決勝進出
+         </p>
+       </header>
+     )}
      <h2>Matches</h2>
      {matches.map((match) => (
        <div key={match._id}>
