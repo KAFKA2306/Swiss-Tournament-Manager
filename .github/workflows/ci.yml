@@ -51,6 +51,7 @@ jobs:
           cache: npm
           cache-dependency-path: swiss-tournament-manager/server/package-lock.json
       - run: npm ci
+      - run: npm test
       - run: npm run smoke
       - name: Ensure install did not modify tracked files
         run: git diff --exit-code
