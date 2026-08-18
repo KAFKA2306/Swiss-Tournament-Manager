@@ -1,19 +1,23 @@
-
 // server/routes/tournament.js
 const express = require('express');
 const router = express.Router();
 const Match = require('../models/Match');
 const User = require('../models/User');
+const { tournamentConfig } = require('../config/tournament');
+
+router.get('/config', (req, res) => {
+  res.send(tournamentConfig);
+});
 
 router.post('/preliminary', async (req, res) => {
  const users = await User.find();
  const matches = [];
 
- for (let round = 1; round <= 4; round++) {
+ for (let round = 1; round <= tournamentConfig.preliminaryRounds; round++) {
    const shuffledUsers = users.sort(() => 0.5 - Math.random());
-   for (let i = 0; i < shuffledUsers.length; i += 4) {
+   for (let i = 0; i < shuffledUsers.length; i += tournamentConfig.tableSize) {
      const match = new Match({
-       players: shuffledUsers.slice(i, i + 4),
+       players: shuffledUsers.slice(i, i + tournamentConfig.tableSize),
        round,
      });
      matches.push(match);
@@ -53,7 +57,7 @@ router.get('/preliminary/results', async (req, res) => {
  }));
 
  results.sort((a, b) => b.totalScore - a.totalScore);
- res.send(results.slice(0, 22));
+ res.send(results.slice(0, tournamentConfig.finalistCut));
 });
 
 module.exports = router;
